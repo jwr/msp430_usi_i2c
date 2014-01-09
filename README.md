@@ -66,7 +66,7 @@ is specified as:
 
 Note that start and stop are added for you automatically, but addressing is fully manual: it is your responsibility to
 shift the 7-bit I2C address to the left and add the R/W bit. The examples above communicate with a device whose I2C
-address is 0x1c, which shifted left gives 0x38. For writes we use 0x39, which is (0x1c<<1)|1.
+address is 0x1c, which shifted left gives 0x38. For reads we use 0x39, which is (0x1c<<1)|1.
 
 Steps to use this code:
 
@@ -90,5 +90,5 @@ Steps to use this code:
 
 # Does it work?
 
-It does for me: I've been using this code in a number of projects and had no problems with it. That said, there are no
-guarantees.
+It does for me: I've been using this code in a number of projects and had no problems with it. I've used it on
+MSP430G2412 and MSP430G2452 chips. That said, there are no guarantees.
