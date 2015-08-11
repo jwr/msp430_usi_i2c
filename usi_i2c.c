@@ -111,7 +111,7 @@ __interrupt void USI_TXRX(void)
     *i2c_receive_buffer = USISRL;
     i2c_receive_buffer++;
     USICTL0 |= USIOE;           // SDA = output
-    if(i2c_sequence_length > 1) {
+    if(i2c_sequence_length > 0) {
       // If this is not the last byte
       USISRL = 0x00;                // ACK
       i2c_state = I2C_HANDLE_RXTX;  // Go to next state: data/rcv again
