@@ -129,7 +129,7 @@ __interrupt void USI_TXRX(void)
   case I2C_STOP:                // Generate Stop Condition
     USISRL = 0x0FF;             // USISRL = 1 to release SDA
     USICTL0 |= USIGE;           // Transparent latch enabled
-    USICTL0 &= ~(USIGE+USIOE);  // Latch/SDA output disabled
+    USICTL0 &= ~(USIGE|USIOE);  // Latch/SDA output disabled
     i2c_state = I2C_IDLE;       // Reset state machine for next xmt
     if(i2c_wakeup_sr_bits) {
       _bic_SR_register_on_exit(i2c_wakeup_sr_bits); // exit active if prompted to
@@ -141,9 +141,9 @@ __interrupt void USI_TXRX(void)
 
 void i2c_init(uint16_t usi_clock_divider, uint16_t usi_clock_source) {
   _disable_interrupts();
-  USICTL0 = USIPE6+USIPE7+USIMST+USISWRST;  // Port & USI mode setup
-  USICTL1 = USII2C+USIIE;                   // Enable I2C mode & USI interrupt
-  USICKCTL = usi_clock_divider + usi_clock_source + USICKPL;
+  USICTL0 = USIPE6|USIPE7|USIMST|USISWRST;  // Port & USI mode setup
+  USICTL1 = USII2C|USIIE;                   // Enable I2C mode & USI interrupt
+  USICKCTL = usi_clock_divider | usi_clock_source | USICKPL;
   USICNT |= USIIFGCC;                       // Disable automatic clear control
   USICTL0 &= ~USISWRST;                     // Enable USI
   USICTL1 &= ~USIIFG;                       // Clear pending flag
