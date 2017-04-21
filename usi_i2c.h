@@ -43,7 +43,7 @@ void i2c_init(uint16_t usi_clock_divider, uint16_t usi_clock_source);
 // performing such lengthy tasks as I2C communication inside an interrupt handler is a bad idea anyway.  wakeup_sr_bits
 // should be a bit mask of bits to clear in the SR register when the transmission is completed (to exit LPM0: LPM0_BITS
 // (CPUOFF), for LPM3: LPM3_bits (SCG1+SCG0+CPUOFF))
-void i2c_send_sequence(uint16_t *sequence, uint16_t sequence_length, uint8_t *received_data, uint16_t wakeup_sr_bits);
+void i2c_send_sequence(uint16_t const * sequence, uint16_t sequence_length, uint8_t *received_data, uint16_t wakeup_sr_bits);
 
 typedef enum i2c_state_enum {
   I2C_IDLE = 0,
