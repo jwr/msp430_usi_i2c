@@ -27,7 +27,7 @@
 #include "usi_i2c.h"
 
 // Internal state
-static uint16_t *i2c_sequence;
+static uint16_t const *i2c_sequence;
 static uint16_t i2c_sequence_length;
 static uint8_t *i2c_receive_buffer;
 static uint16_t i2c_wakeup_sr_bits;
@@ -36,7 +36,7 @@ i2c_state_type i2c_state = I2C_IDLE;
 static inline void i2c_prepare_stop();
 static inline void i2c_prepare_data_xmit_recv();
 
-void i2c_send_sequence(uint16_t *sequence, uint16_t sequence_length, uint8_t *received_data, uint16_t wakeup_sr_bits) {
+void i2c_send_sequence(uint16_t const * sequence, uint16_t sequence_length, uint8_t *received_data, uint16_t wakeup_sr_bits) {
   while(i2c_state != I2C_IDLE); // we can't start another sequence until the current one is done
   i2c_sequence = sequence;
   i2c_sequence_length = sequence_length;
