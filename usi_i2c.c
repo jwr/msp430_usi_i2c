@@ -22,7 +22,7 @@
   SOFTWARE.
 */
 
-#include <msp430g2412.h>
+#include <msp430.h>
 #include <stdint.h>
 #include "usi_i2c.h"
 
@@ -79,8 +79,13 @@ static inline void i2c_prepare_data_xmit_recv() {
   }
 }
 
+#ifdef __GNUC__
+__attribute__((interrupt(USI_VECTOR)))
+#else
 #pragma vector = USI_VECTOR
-__interrupt void USI_TXRX(void)
+__interrupt
+#endif
+void USI_TXRX(void)
 {
   switch(__even_in_range(i2c_state,12)) {
   case I2C_IDLE:
